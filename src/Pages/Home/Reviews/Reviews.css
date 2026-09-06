@@ -1,0 +1,31 @@
+.testimonialSwiper {
+  padding: 40px 0 60px;
+}
+
+.testimonialSwiper .swiper-slide {
+  opacity: .35;
+  transform: scale(.88);
+  transition: all .4s ease;
+  filter: blur(1px);
+}
+
+.testimonialSwiper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.testimonialSwiper .swiper-slide-active .review-card {
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+}
+
+.testimonialSwiper .swiper-pagination-bullet{
+  width:10px;
+  height:10px;
+  background:#d9d9d9;
+  opacity:1;
+}
+
+.testimonialSwiper .swiper-pagination-bullet-active{
+  background:#CAEB66;
+}

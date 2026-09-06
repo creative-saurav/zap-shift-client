@@ -1,0 +1,27 @@
+.carousel .control-dots {
+    text-align: left;
+    margin-left: 60px;
+    bottom: 15px;
+}
+
+.carousel .control-dots .dot {
+    width: 30px;
+    height: 4px;
+    border-radius: 20px;
+    opacity: 1;
+    background: #cbd5e1;
+    box-shadow: none;
+}
+
+.carousel .control-dots .dot.selected {
+    width: 35px;
+    background: #0b4b5a;
+}
+
+.carousel .slide {
+    background: transparent;
+}
+
+.carousel.carousel-slider {
+    overflow: visible;
+}

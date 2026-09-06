@@ -1,0 +1,18 @@
+.tabs .tab {
+  font-size: 22px;
+  color: #8e8b8b;
+  padding: 0 24px 18px;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs .tab:is(:checked) {
+  color: #5B6A2E;
+  font-weight: 700;
+}
+
+.tab-content {
+  border: none;
+  background: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
