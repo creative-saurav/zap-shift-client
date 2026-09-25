@@ -8,7 +8,7 @@ import MerchantSection from '../MerchantSection/MerchantSection';
 import Reviews from '../Reviews/Reviews';
 import FAQ from '../Faq/Faq';
 
-const reviewsPromise = fetch('./reviews.json').then(res=>res.json());
+// const reviewsPromise = fetch('./reviews.json').then(res=>res.json());
 
 const Home = () => {
     return (
@@ -19,7 +19,7 @@ const Home = () => {
            <Brands></Brands>
            <Features></Features>
            <MerchantSection ></MerchantSection>
-           <Reviews reviewsPromise= {reviewsPromise}></Reviews>
+           <Reviews></Reviews>
            <FAQ></FAQ>
         </div>
     );

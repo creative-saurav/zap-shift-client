@@ -1,9 +1,10 @@
 import React from 'react';
-import { FaBoxOpen, FaClipboardCheck, FaHistory, FaMotorcycle, FaUsers } from 'react-icons/fa';
-import { FiFileText, FiGrid, FiHelpCircle, FiHome, FiLayout, FiLock, FiMapPin, FiSettings, FiTag, FiTruck } from 'react-icons/fi';
-import { MdAssignment, MdChangeHistory, MdOutlineBikeScooter, MdOutlinePedalBike } from 'react-icons/md';
+import { FaBoxes, FaBoxOpen, FaClipboardCheck, FaHistory, FaMotorcycle, FaStar, FaUser, FaUsers } from 'react-icons/fa';
+import { FiFileText, FiGrid, FiMapPin, FiSettings } from 'react-icons/fi';
+import { MdAssignment, MdOutlineBikeScooter } from 'react-icons/md';
 import { NavLink } from 'react-router';
-import useRole from '../../../Hooks/useRole';
+import useRole from '../../Hooks/useRole';
+
 
 
 const Sidebar = () => {
@@ -87,6 +88,18 @@ const Sidebar = () => {
             {
                 role === 'admin' && 
                  <>
+                 {/* My Parcels */}
+                    <NavLink to='/dashboard/all-parcels' className={({isActive})=> `h-[42px] px-3 flex items-center gap-3 rounded-lg cursor-pointer transition ${
+                      isActive
+                        ? "bg-primary text-black"
+                        : "hover:bg-primary hover:text-black"
+                    }` }>
+                      <FaBoxes className="text-[17px]" />
+
+                      <span className="text-[16px]">
+                        All Parcels
+                      </span>
+                    </NavLink>
                  {/*  Riders Application */}
                     <NavLink to='/dashboard/approve-riders' className={({isActive})=> `h-[42px] px-3 flex items-center gap-3 rounded-lg cursor-pointer transition ${
                     isActive
@@ -125,95 +138,57 @@ const Sidebar = () => {
                         User Management
                     </span>
                     </NavLink>
+                    <NavLink to='/dashboard/user-reviews' className={({isActive})=> `h-[42px] px-3 flex items-center gap-3 rounded-lg cursor-pointer transition ${
+                    isActive
+                        ? "bg-primary text-black"
+                        : "hover:bg-primary hover:text-black"
+                    }` }>
+                    <FaStar className="text-[17px]" />
+
+                    <span className="text-[16px]">
+                         Reviews
+                    </span>
+                    </NavLink>
+
+                     {/* Coverage Area */}
+                    <NavLink to='/dashboard/coverage-area' className={({isActive})=> `h-[42px] px-3 flex items-center gap-3 rounded-lg cursor-pointer transition ${
+                    isActive
+                        ? "bg-primary text-black"
+                        : "hover:bg-primary hover:text-black"
+                    }` }>
+                      <FiMapPin className="text-[17px]" />
+
+                      <span className="text-[16px]">
+                        Coverage Area
+                      </span>
+                    </NavLink>
 
                 </>
             }
             {/* Admin Only Links */}
-            {/* Deliveries */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiTruck className="text-[17px]" />
 
-              <span className="text-[16px]">
-                Deliveries
-              </span>
-            </div>
 
-            {/* Invoices */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiFileText className="text-[17px]" />
+      
 
-              <span className="text-[16px]">
-                Invoices
-              </span>
-            </div>
-
-            {/* Stores */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiHome className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Stores
-              </span>
-            </div>
-
-            {/* Pricing Plan */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiTag className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Pricing Plan
-              </span>
-            </div>
-
-            {/* Coverage Area */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiMapPin className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Coverage Area
-              </span>
-            </div>
+           
 
             {/* GENERAL */}
             <p className="text-[12px] font-semibold text-[#222] uppercase mt-6 mb-3">
               General
             </p>
 
-            {/* Settings */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiSettings className="text-[17px]" />
+            <NavLink to='/dashboard/profile' className={({isActive})=> `h-[42px] px-3 flex items-center gap-3 rounded-lg cursor-pointer transition ${
+              isActive
+                ? "bg-primary text-black"
+                : "hover:bg-primary hover:text-black"
+            }` }>
+              <FaUser className="text-[17px]" />
 
               <span className="text-[16px]">
-                Settings
+                Profile
               </span>
-            </div>
+            </NavLink>
 
-            {/* Change Password */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiLock className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Change Password
-              </span>
-            </div>
-
-            {/* Help */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiHelpCircle className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Help
-              </span>
-            </div>
-
-            {/* Layout */}
-            <div className="h-[42px] px-3 flex items-center gap-3 rounded-lg hover:bg-gray-100 cursor-pointer transition">
-              <FiLayout className="text-[17px]" />
-
-              <span className="text-[16px]">
-                Layout
-              </span>
-            </div>
 
           </div>
     );

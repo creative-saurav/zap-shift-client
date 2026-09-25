@@ -7,21 +7,35 @@ const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get('session_id');
     const [paymentInfo, setPaymentInfo] = useState({});
+    //Paypal
+    const paypalTransactionId = searchParams.get('transactionId');
+    const paypalTrackingId = searchParams.get('trackingId');
+    //Paypal
     const axiosSecure = useAxiosSecure();
 
-    useEffect(() => {
-        if (sessionId) {
-            axiosSecure
-                .patch(`/payment-success?session_id=${sessionId}`)
-                .then(res => {
-                    console.log(res.data);
-                    setPaymentInfo({
-                        transactionId: res.data.transactionId,
-                        trackingId: res.data.trackingId
+      useEffect(() => {
+
+            // Stripe Payment
+            if (sessionId) {
+                axiosSecure
+                    .patch(`/payment-success?session_id=${sessionId}`)
+                    .then(res => {
+                        console.log("Stripe Payment:", res.data);
+
+                        setPaymentInfo({
+                            transactionId: res.data.transactionId,
+                            trackingId: res.data.trackingId
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Stripe Payment Error:", error);
                     });
-                });
-        }
-    }, [sessionId, axiosSecure]);
+            }
+
+        }, [
+            sessionId,
+            axiosSecure
+        ]);
 
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
@@ -65,13 +79,15 @@ const PaymentSuccess = () => {
 
                         <div className="flex items-center justify-between gap-4">
                             <h3 className="text-[#03373D] text-[17px] md:text-[19px] font-semibold break-all">
-                                {paymentInfo.transactionId || 'Loading...'}
+                               {paymentInfo.transactionId || paypalTransactionId || 'Loading...'}
                             </h3>
 
-                            {paymentInfo.transactionId && (
+                            {(paymentInfo.transactionId || paypalTransactionId) && (
                                 <button
                                     onClick={() =>
-                                        handleCopy(paymentInfo.transactionId)
+                                        handleCopy(
+                                            paymentInfo.transactionId || paypalTransactionId
+                                        )
                                     }
                                     className="w-10 h-10 shrink-0 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:bg-primary transition cursor-pointer"
                                 >
@@ -89,13 +105,15 @@ const PaymentSuccess = () => {
 
                         <div className="flex items-center justify-between gap-4">
                             <h3 className="text-[#03373D] text-xl md:text-2xl font-bold break-all">
-                                {paymentInfo.trackingId || 'Loading...'}
+                               {paymentInfo.trackingId || paypalTrackingId || 'Loading...'}
                             </h3>
 
-                            {paymentInfo.trackingId && (
+                           {(paymentInfo.trackingId || paypalTrackingId) && (
                                 <button
                                     onClick={() =>
-                                        handleCopy(paymentInfo.trackingId)
+                                        handleCopy(
+                                            paymentInfo.trackingId || paypalTrackingId
+                                        )
                                     }
                                     className="w-10 h-10 shrink-0 rounded-lg bg-white border border-gray-200 flex items-center justify-center hover:bg-primary transition cursor-pointer"
                                 >

@@ -1,12 +1,24 @@
 import { Search } from "lucide-react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import 'leaflet/dist/leaflet.css'
-import { useLoaderData } from "react-router";
 import { useRef } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const Coverage = () => {
+
+  const axiosSecure = useAxiosSecure();
+    //Tanstack Query
+    const {data : serviceCenter = []} = useQuery({
+      queryKey : ['serviceCenter'],
+        queryFn: async() =>{
+          const res = await axiosSecure.get('/coverage');
+          return res.data;
+        }
+      })
+
  const position = [23.8103, 90.4125];
- const serviceCenter = useLoaderData();
+
  const mapRef = useRef(null);
 //  console.log(serviceCenter);
 const handleSearch = e =>{

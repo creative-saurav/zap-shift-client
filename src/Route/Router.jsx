@@ -5,7 +5,6 @@ import Coverage from "../Pages/Coverage/Coverage";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Error from "../Pages/ErrorPage/Error";
 import AuthLayout from "../layouts/AuthLayout";
-import { Component } from "lucide-react";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import PrivateRoute from "./PrivateRoute";
@@ -31,6 +30,13 @@ import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import ParcelTrack from "../Pages/ParcelTrack/ParcelTrack";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import UserReviews from "../Pages/Dashboard/UserReviews/UserReviews";
+import AllParcels from "../Pages/Dashboard/AllParcels/AllParcels";
+import CoverageArea from "../Pages/Dashboard/Coverage-area/CoverageArea";
+import AddCoverage from "../Pages/Dashboard/Coverage-area/AddCoverage";
+import EditCoverage from "../Pages/Dashboard/Coverage-area/EditCoverage";
+import Profile from "../Pages/Dashboard/Profile/Profile";
+import EditProfile from "../Pages/Dashboard/Profile/EditProfile";
 
 
 export const router = createBrowserRouter([
@@ -44,8 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/coverage',
-        Component: Coverage,
-        loader: () => fetch('./warehouses.json').then(res=>res.json())
+        Component: Coverage
       },
       {
         path: '/about-us',
@@ -55,12 +60,12 @@ export const router = createBrowserRouter([
       {
         path: '/rider',
         element: <PrivateRoute><Rider></Rider></PrivateRoute>,
-         loader: () => fetch('./warehouses.json').then(res=>res.json())
+        //  loader: () => fetch('./warehouses.json').then(res=>res.json())
       },
       {
         path: '/send-parcel',
         element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>,
-        loader: () => fetch('./warehouses.json').then(res=>res.json())
+        // loader: () => fetch('./warehouses.json').then(res=>res.json())
       },
       {
         path: '/parcel-tracking/:trackingId',
@@ -105,6 +110,10 @@ export const router = createBrowserRouter([
         Component: MyParcels
       },
       {
+        path: 'all-parcels',
+        Component: AllParcels
+      },
+      {
         path: 'parcels-details/:id',
         Component: ParcelsDetails
       },
@@ -123,6 +132,14 @@ export const router = createBrowserRouter([
       {
         path: 'payment-history',
         Component: PaymentHistory
+      },
+      {
+        path: 'profile',
+        Component: Profile
+      },
+      {
+        path: 'editProfile',
+        Component: EditProfile
       },
       //Riders Only Used This Link
       {
@@ -154,7 +171,24 @@ export const router = createBrowserRouter([
       {
         path:'edit-users/:id',
         element: <AdminRoute><EditUser></EditUser></AdminRoute>
+      },
+      {
+        path: 'user-reviews',
+        element: <AdminRoute><UserReviews></UserReviews></AdminRoute>
+      },
+      {
+        path: 'coverage-area',
+        element: <AdminRoute><CoverageArea></CoverageArea></AdminRoute>
+      },
+      {
+        path: 'add-coverage',
+        element: <AdminRoute><AddCoverage/></AdminRoute>
+      },
+      {
+        path: 'edit-coverage/:id',
+        element: <AdminRoute><EditCoverage/></AdminRoute>
       }
+
       //Admin Only Used This Links
 
     ]

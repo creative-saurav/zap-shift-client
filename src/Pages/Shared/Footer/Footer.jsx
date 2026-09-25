@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from '../../../components/Logo/Logo';
+import { NavLink } from 'react-router';
 
 const Footer = () => {
     return (
@@ -22,12 +23,9 @@ const Footer = () => {
 
                 {/* Nav links */}
                 <ul className="flex flex-wrap items-center justify-center gap-8 text-gray-300 text-sm mb-6">
-                    <li><a href="#" className="hover:text-white transition">Services</a></li>
-                    <li><a href="#" className="hover:text-white transition">Coverage</a></li>
-                    <li><a href="#" className="hover:text-white transition">About Us</a></li>
-                    <li><a href="#" className="hover:text-white transition">Pricing</a></li>
-                    <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                    <li><a href="#" className="hover:text-white transition">Contact</a></li>
+                    <li><NavLink to='/' className="hover:text-white transition">Home</NavLink></li>
+                    <li><NavLink to="/coverage" className="hover:text-white transition">Coverage</NavLink></li>
+                    <li><NavLink to="/about-us" className="hover:text-white transition">About Us</NavLink></li>
                 </ul>
 
                 {/* Bottom divider */}

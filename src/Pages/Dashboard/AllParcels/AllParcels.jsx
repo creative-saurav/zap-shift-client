@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { FiPackage } from "react-icons/fi";
-import useAuth from "../../../Hooks/useAuth";
+
+
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link, NavLink } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FaEye, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
-const MyParcels = () => {
-    const {user} = useAuth();
-    // const [parcels, setParcels] = useState([]);
+const AllParcels = () => {
     const axiosSecure = useAxiosSecure();
-
-    // useEffect(()=>{
-    //     axiosSecure.get(`/parcels?email=${user.email}`)
-    //     .then(data=>setParcels(data.data))
-    // },[user])
- //Tanstack Query
+    const [searchText, setSearchText] = useState('');
+    //Tanstack Query
     const {data : parcels = [], refetch} = useQuery({
-      queryKey : ['myParcels', user?.email],
+      queryKey : ['allParcels',searchText],
         queryFn: async() =>{
-          const res = await axiosSecure.get(`/parcels?email=${user.email}`);
+          const res = await axiosSecure.get(`/allParcels?searchText=${searchText}`);
           return res.data;
         }
       })
@@ -46,7 +40,7 @@ const MyParcels = () => {
               if(res.data.deletedCount){
                  Swal.fire({
                     title: "Deleted!",
-                    text: "Your Parcels has been deleted.",
+                    text: "Parcels has been deleted.",
                     icon: "success"
                   });
               }
@@ -63,96 +57,89 @@ const MyParcels = () => {
   return (
       <div>
 
-        {/* Heading */}
-        <h1 className="text-[32px] font-bold text-[#03373D] mb-7">
-         My Parcels {parcels.length}
-        </h1>
+              {/* Header + Search */}
+      <div className="mb-8">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          {/* Header */}
+          <div>
+            <h2 className="text-3xl font-bold text-[#03373D]">All Parcels</h2>
 
-        {/* ================= STATUS CARDS ================= */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-7">
-
-    
-          <div className="border border-gray-200 rounded-xl h-[78px] px-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f8f8f8] border border-gray-200 flex items-center justify-center">
-              <FiPackage className="text-[18px] text-[#555]" />
-            </div>
-
-            <div>
-              <p className="text-[13px] text-[#333] mb-1">
-                Unpaid
-              </p>
-              <p className="text-[21px] font-bold text-[#27313f] leading-none">
-                129
-              </p>
-            </div>
+            <p className="mt-2 text-[15px] text-gray-500">
+              Manage and track all parcels from one place.
+            </p>
           </div>
 
+          {/* Search */}
+          <div className="relative w-full sm:w-[360px]">
+            <input
+              value={searchText}
+              type="search"
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search parcels..."
+              className="
+                                h-12 w-full
+                                rounded-xl
+                                border border-gray-200
+                                bg-white
+                                pl-12 pr-11
+                                text-[15px] text-[#03373D]
+                                shadow-sm
+                                outline-none
+                                transition-all duration-200
+                                placeholder:text-gray-400
+                                focus:border-[#CAEB66]
+                                focus:ring-4 focus:ring-[#CAEB66]/20
+                            "
+            />
 
-          <div className="border border-gray-200 rounded-xl h-[78px] px-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f8f8f8] border border-gray-200 flex items-center justify-center">
-              <FiPackage className="text-[18px] text-[#555]" />
-            </div>
-
-            <div>
-              <p className="text-[13px] text-[#333] mb-1">
-                Ready Pick UP
-              </p>
-              <p className="text-[21px] font-bold text-[#27313f] leading-none">
-                1,325
-              </p>
-            </div>
-          </div>
-
-
-          <div className="border border-gray-200 rounded-xl h-[78px] px-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f8f8f8] border border-gray-200 flex items-center justify-center">
-              <FiPackage className="text-[18px] text-[#555]" />
-            </div>
-
-            <div>
-              <p className="text-[13px] text-[#333] mb-1">
-                In Transit
-              </p>
-              <p className="text-[21px] font-bold text-[#27313f] leading-none">
-                50
-              </p>
-            </div>
-          </div>
-
-
-          <div className="border border-gray-200 rounded-xl h-[78px] px-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f8f8f8] border border-gray-200 flex items-center justify-center">
-              <FiPackage className="text-[18px] text-[#555]" />
-            </div>
-
-            <div>
-              <p className="text-[13px] text-[#333] mb-1">
-                Ready to Deliver
-              </p>
-              <p className="text-[21px] font-bold text-[#27313f] leading-none">
-                50
-              </p>
+            {/* Search Icon */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg
+                className="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
             </div>
           </div>
+        </div>
 
+        {/* Parcels Count */}
+        <div className="mt-6 flex items-center justify-between border-b border-gray-100 pb-4">
+          <div className="flex items-center gap-3">
+            <span className="text-[15px] font-medium text-gray-500">
+              Total Parcels
+            </span>
 
-          <div className="border border-gray-200 rounded-xl h-[78px] px-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f8f8f8] border border-gray-200 flex items-center justify-center">
-              <FiPackage className="text-[18px] text-[#555]" />
-            </div>
-
-            <div>
-              <p className="text-[13px] text-[#333] mb-1">
-                Delivered
-              </p>
-              <p className="text-[21px] font-bold text-[#27313f] leading-none">
-                50
-              </p>
-            </div>
+            <span
+              className="
+                            inline-flex
+                            min-w-8 h-8
+                            items-center justify-center
+                            rounded-lg
+                            bg-[#03373D]
+                            px-3
+                            text-sm font-semibold
+                            text-white
+                        "
+            >
+              {parcels.length}
+            </span>
           </div>
 
-        </div> */}
-
+          {/* {searchText && (
+            <p className="text-sm text-gray-400">
+              Searching for{" "}
+              <span className="font-medium text-[#03373D]">"{searchText}"</span>
+            </p>
+          )} */}
+        </div>
+      </div>
 
         {/* ================= TABLE ================= */}
         <div className="overflow-x-auto border border-gray-200 rounded-lg">
@@ -163,6 +150,9 @@ const MyParcels = () => {
             <thead>
               <tr className="bg-[#f8f9fa] border-b border-gray-200">
 
+                <th className="text-left px-4 py-3 text-[16px] font-medium text-[#333]">
+                  ID
+                </th>
                 <th className="text-left px-4 py-3 text-[16px] font-medium text-[#333]">
                   Parcel Info
                 </th>
@@ -196,6 +186,9 @@ const MyParcels = () => {
                  <tr className="bg-white" key={index}>
 
                         <td className="px-4 py-4 text-[16px] text-[#555]">
+                        {index + 1}
+                        </td>
+                        <td className="px-4 py-4 text-[16px] text-[#555]">
                         {parcel.parcelName}
                         </td>
 
@@ -215,7 +208,7 @@ const MyParcels = () => {
                         {
                             parcel.paymentStatus === 'paid'
                               ? <span className="btn btn-sm btn-success text-white">Paid</span>
-                              : <Link className="btn btn-sm btn-primary text-black" to={`/dashboard/payment/${parcel._id}`}>Pay</Link>
+                              : <span className="btn btn-sm btn-primary text-black">Un Paid</span>
                           }
                         </td>
                         <td className="px-4 py-4 text-[16px] text-[#555]">
@@ -285,4 +278,4 @@ const MyParcels = () => {
   );
 };
 
-export default MyParcels;
+export default AllParcels;

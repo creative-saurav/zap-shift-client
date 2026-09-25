@@ -1,10 +1,11 @@
 import React from "react";
 import { set, useForm, useWatch } from "react-hook-form";
-import { useLoaderData, useNavigate } from "react-router";
+import {  useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const SendParcel = () => {
     const {
@@ -22,7 +23,16 @@ const SendParcel = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
 
-    const serviceCenter = useLoaderData();
+    // const serviceCenter = useLoaderData();
+
+     const {data : serviceCenter = []} = useQuery({
+      queryKey : ['serviceCenter'],
+        queryFn: async() =>{
+          const res = await axiosSecure.get('/coverage');
+          return res.data;
+        }
+      })
+
     const duplicateRegions = serviceCenter.map(c=>c.region);
     const regions = [...new Set(duplicateRegions)];
     // console.log(regions);
@@ -355,7 +365,7 @@ const SendParcel = () => {
                                     type="tel"
                                     placeholder="Receiver Contact No"
                                     {...register("receiverPhone")}
-                                    className="w-full textarea  h-12 px-4 border border-gray-300 rounded-md outline-none focus:border-primary"
+                                    className="w-full h-12 px-4 border border-gray-300 rounded-md outline-none focus:border-primary"
                                 />
                             </div>
 

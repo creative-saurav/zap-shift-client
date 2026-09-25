@@ -9,10 +9,12 @@ import {
   FiSettings,
 } from "react-icons/fi";
 import useAuth from "../Hooks/useAuth";
-import Sidebar from "../components/Logo/Dashboard/Sidebar";
+import Sidebar from "../components/Dashboard/Sidebar"
+import useRole from "../Hooks/useRole";
 
 const DashboardLayout = () => {
   const {user, signOutUser} = useAuth();
+  const {role} = useRole();
   const navigate = useNavigate();
 
   const logOut = () =>{
@@ -73,8 +75,10 @@ const DashboardLayout = () => {
                   <p className="text-[14px] font-semibold text-[#222]">
                     {user?.displayName}
                   </p>
-                  <p className="text-[12px] text-gray-500">
-                    Admin
+                  <p className="text-[12px] capitalize text-gray-500">
+                    {
+                      role === 'admin' ?  'Admin' :  role === 'rider' ? 'Rider' : 'Customer'
+                    }
                   </p>
                 </div>
 
@@ -87,17 +91,10 @@ const DashboardLayout = () => {
                 className="dropdown-content menu bg-white rounded-xl z-[50] w-52 p-2 mt-3 shadow-lg border border-gray-100"
               >
                 <li>
-                  <a className="text-[14px] py-3">
+                  <NavLink to='/dashboard/profile' className="text-[14px] py-3">
                     <FiUser className="text-[17px]" />
                     Profile
-                  </a>
-                </li>
-
-                <li>
-                  <a className="text-[14px] py-3">
-                    <FiSettings className="text-[17px]" />
-                    Settings
-                  </a>
+                  </NavLink>
                 </li>
 
                 <div className="divider my-1"></div>
@@ -152,10 +149,10 @@ const DashboardLayout = () => {
               </span>
             </NavLink>
           </div>
+          
 
           {/* ================= SIDEBAR MENU ================= */}
-          <Sidebar></Sidebar>
-
+              <Sidebar></Sidebar>
         </aside>
       </div>
     </div>

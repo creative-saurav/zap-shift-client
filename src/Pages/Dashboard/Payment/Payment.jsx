@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaCreditCard, FaBox, FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
+import { PayPalButtons } from '@paypal/react-paypal-js';
 
 const Payment = () => {
     const { parcelId } = useParams();
@@ -30,6 +31,81 @@ const Payment = () => {
         window.location.href = res.data.url;
 
     }
+
+    //Paypal Payment
+const createPayPalOrder = async (data, actions) => {
+    console.log("🔥 CREATE ORDER START");
+
+    const paymentInfo = {
+        cost: parcel.cost,
+        parcelName: parcel.parcelName,
+        senderEmail: parcel.senderEmail,
+        parcelId: parcel._id,
+        trackingId: parcel.trackingId,
+    };
+
+    console.log("📦 Sending to backend:", paymentInfo);
+
+    try {
+        const res = await axiosSecure.post(
+            '/create-paypal-order',
+            paymentInfo
+        );
+
+        console.log("✅ Create Order Response:", res.data);
+
+        return res.data.id;
+
+    } catch (error) {
+        console.error(
+            "❌ Create Order Error:",
+            error.response?.data || error.message
+        );
+
+        throw error;
+    }
+};
+const onPayPalApprove = async (data) => {
+
+    console.log("🔥🔥🔥 PAYPAL ON APPROVE FIRED");
+    console.log("PayPal Data:", data);
+
+    const paymentInfo = {
+        orderId: data.orderID,
+        parcelId: parcel._id,
+        parcelName: parcel.parcelName,
+        senderEmail: parcel.senderEmail,
+        cost: parcel.cost,
+        trackingId: parcel.trackingId,
+    };
+
+    console.log("📦 Capture Payment Info:", paymentInfo);
+
+    try {
+
+        const res = await axiosSecure.post(
+            '/capture-paypal-order',
+            paymentInfo
+        );
+
+        console.log("✅ Capture Response:", res.data);
+
+        if (res.data.success) {
+
+            console.log("🎉 PAYMENT SUCCESS");
+
+            window.location.href =
+                `/dashboard/payment-success?transactionId=${res.data.transactionId}&trackingId=${res.data.trackingId}`;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "❌ Capture API Error:",
+            error.response?.data || error.message
+        );
+    }
+};
 
 
     if (isLoading) {
@@ -176,11 +252,34 @@ const Payment = () => {
 
                         {/* Pay Button */}
                         <button onClick={handlePayment}
-                            className="w-full bg-[#CAEB66] hover:bg-white text-[#03373D] font-bold py-3.5 px-5 rounded-xl flex items-center justify-center gap-3 transition duration-300"
+                            className="w-full mb-2 bg-[#CAEB66] hover:bg-white text-[#03373D] font-bold py-3.5 px-5 rounded-xl flex items-center justify-center gap-3 transition duration-300"
                         >
-                            Pay ৳{parcel.cost}
+                            Pay With Stripe
                             <FaArrowRight />
                         </button>
+                        {/* Pay Button */}
+                          <div className="w-full bg-white rounded-xl p-2">
+                            <PayPalButtons
+                                style={{
+                                    layout: 'vertical',
+                                    shape: 'rect',
+                                    label: 'paypal',
+                                    height: 50,
+                                }}
+
+                                createOrder={createPayPalOrder}
+
+                                onApprove={onPayPalApprove}
+
+                                onCancel={(data) => {
+                                    console.log("⚠️ PAYPAL CANCELLED:", data);
+                                }}
+
+                                onError={(error) => {
+                                    console.error("❌ PAYPAL BUTTON ERROR:", error);
+                                }}
+                            />
+                        </div>
 
                         <p className="text-center text-xs text-white/50 mt-5">
                             Your payment information is securely processed.

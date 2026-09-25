@@ -1,10 +1,11 @@
 import React from "react";
-import { FaQuoteLeft } from "react-icons/fa";
+import { FaQuoteLeft, FaStar } from "react-icons/fa";
 
 const ReviewsCard = ({ review }) => {
   const {
-    userName,
-    user_photoURL,
+    name,
+    image,
+    rating,
     review: reviewText,
   } = review;
 
@@ -26,19 +27,28 @@ const ReviewsCard = ({ review }) => {
       <div className="flex items-center gap-4">
 
         <img
-          src={user_photoURL}
-          alt={userName}
+          src={image}
+          alt={name}
           className="w-14 h-14 rounded-full object-cover"
         />
 
         <div>
           <h3 className="text-[20px] font-bold text-[#03373D]">
-            {userName}
+            {name}
           </h3>
 
-          <p className="text-[#8B8B8B] text-sm">
-            Parcel Customer
-          </p>
+         <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, index) => (
+              <FaStar
+                key={index}
+                className={
+                  index < rating
+                    ? "text-[#FFC107] text-sm"
+                    : "text-[#D9D9D9] text-sm"
+                }
+              />
+            ))}
+          </div>
         </div>
 
       </div>

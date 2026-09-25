@@ -6,6 +6,7 @@ import { useLoaderData } from "react-router";
 import { useForm, useWatch } from "react-hook-form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const Rider = () => {
 
@@ -19,7 +20,16 @@ const Rider = () => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
 
-    const serviceCenter = useLoaderData();
+    // const serviceCenter = useLoaderData();
+     const {data : serviceCenter = []} = useQuery({
+      queryKey : ['serviceCenter'],
+        queryFn: async() =>{
+          const res = await axiosSecure.get('/coverage');
+          return res.data;
+        }
+      })
+
+
     const duplicateRegions = serviceCenter.map(c=>c.region);
     const regions = [...new Set(duplicateRegions)];
     // console.log(regions);

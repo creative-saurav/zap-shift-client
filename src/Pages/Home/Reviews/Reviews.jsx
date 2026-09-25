@@ -14,10 +14,19 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import './Reviews.css'
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const Reviews = ({ reviewsPromise }) => {
-  const reviews = use(reviewsPromise);
+const Reviews = () => {
+  const axiosSecure = useAxiosSecure();
   // console.log(reviews);
+  const {data: reviews = []} = useQuery({
+    queryKey:['reviews'],
+    queryFn: async()=>{
+      const res = await axiosSecure.get('/reviews');
+      return res.data
+    }
+  })
   return (
     <section className="pt-20 pb-12">
       <div className="max-w-4xl mx-auto text-center px-4">
