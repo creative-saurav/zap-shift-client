@@ -1,14 +1,12 @@
-import React from 'react';
-import logo from '../../assets/logo.png'
+import { Box } from 'lucide-react';
 import { Link } from 'react-router';
 
-const Logo = () => {
+const Logo = ({ target }) => {
     return (
-        <div>
-          <Link to='/'>
-           <img src={logo} alt="Logo" style={{ height: 50 }} />
-          </Link>
-        </div>
+    <Link to='/' target={target} className="zip-brand" aria-label="Wayline Delivery home">
+      <span className="zip-brand-mark"><Box size={19} strokeWidth={2.2} /></span>
+      <span>Wayline<span className="zip-brand-accent"> Delivery</span></span>
+    </Link>
     );
 };
 

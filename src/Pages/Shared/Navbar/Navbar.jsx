@@ -32,11 +32,7 @@ const Navbar = () => {
           onClick={closeMobileMenu}
           to="/"
           className={({ isActive }) =>
-            `block px-4 py-3 rounded-xl text-base transition ${
-              isActive
-                ? "bg-primary text-black font-semibold"
-                : "hover:bg-gray-100"
-            }`
+            `zip-nav-link${isActive ? " is-active" : ""}`
           }
         >
           Home
@@ -48,11 +44,7 @@ const Navbar = () => {
           onClick={closeMobileMenu}
           to="/coverage"
           className={({ isActive }) =>
-            `block px-4 py-3 rounded-xl text-base transition ${
-              isActive
-                ? "bg-primary text-black font-semibold"
-                : "hover:bg-gray-100"
-            }`
+            `zip-nav-link${isActive ? " is-active" : ""}`
           }
         >
           Coverage
@@ -64,11 +56,7 @@ const Navbar = () => {
           onClick={closeMobileMenu}
           to="/about-us"
           className={({ isActive }) =>
-            `block px-4 py-3 rounded-xl text-base transition ${
-              isActive
-                ? "bg-primary text-black font-semibold"
-                : "hover:bg-gray-100"
-            }`
+            `zip-nav-link${isActive ? " is-active" : ""}`
           }
         >
           About Us
@@ -80,11 +68,7 @@ const Navbar = () => {
           onClick={closeMobileMenu}
           to="/send-parcel"
           className={({ isActive }) =>
-            `block px-4 py-3 rounded-xl text-base transition ${
-              isActive
-                ? "bg-primary text-black font-semibold"
-                : "hover:bg-gray-100"
-            }`
+            `zip-nav-link${isActive ? " is-active" : ""}`
           }
         >
           Send A Parcel
@@ -94,29 +78,29 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="mt-4 sm:mt-6 bg-white rounded-2xl shadow-sm px-4 sm:px-6 lg:px-8 py-4">
-      <div className="flex items-center justify-between">
+    <nav className="zip-site-nav">
+      <div className="zip-header-row">
         {/* Logo */}
         <Logo />
 
         {/* Desktop Menu */}
-        <ul className="hidden lg:flex items-center gap-8 text-gray-500 font-medium">
+        <ul className="zip-header-links hidden lg:flex items-center gap-8 text-gray-500 font-medium">
           {links}
         </ul>
 
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="zip-header-actions hidden lg:flex items-center gap-3">
 
           <NavLink
             to="/rider"
-            className="flex items-center bg-primary rounded-full pl-6 pr-1 py-1 hover:bg-secondary hover:text-white transition"
+            className="zip-rider-link"
           >
             <span className="font-semibold text-base pr-3">
               Be a Rider
             </span>
 
-            <span className="w-9 h-9 bg-black rounded-full flex items-center justify-center">
-              <FiArrowUpRight className="text-lime-300 text-lg" />
+            <span className="zip-rider-icon">
+              <FiArrowUpRight />
             </span>
           </NavLink>
 
@@ -164,7 +148,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="px-6 py-2.5 border border-gray-200 rounded-full font-semibold text-base hover:bg-gray-100 transition"
+                className="zip-signin-link"
             >
               Sign In
             </Link>
@@ -174,8 +158,9 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="lg:hidden w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center text-2xl hover:bg-primary transition"
+          className="zip-menu-button lg:hidden"
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
           {open ? <FiX /> : <FiMenu />}
         </button>
@@ -183,7 +168,7 @@ const Navbar = () => {
 
       {/* ================= MOBILE MENU ================= */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`zip-mobile-menu lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           open
             ? "max-h-[700px] opacity-100 mt-5"
             : "max-h-0 opacity-0"
@@ -215,7 +200,7 @@ const Navbar = () => {
           )}
 
           {/* Mobile Navigation */}
-          <ul className="flex flex-col gap-1 text-gray-600 font-medium">
+          <ul className="zip-mobile-links">
             {links}
           </ul>
 
@@ -258,7 +243,7 @@ const Navbar = () => {
               <Link
                 onClick={closeMobileMenu}
                 to="/login"
-                className="w-full py-3.5 border border-gray-200 rounded-xl font-semibold text-center hover:bg-gray-100 transition"
+                className="zip-mobile-signin"
               >
                 Sign In
               </Link>
@@ -267,11 +252,11 @@ const Navbar = () => {
             <Link
               onClick={closeMobileMenu}
               to="/rider"
-              className="w-full py-3.5 rounded-xl bg-primary hover:bg-secondary hover:text-white transition flex items-center justify-center gap-2 font-semibold"
+              className="zip-mobile-rider"
             >
               Be a Rider
-              <span className="w-7 h-7 bg-black rounded-full flex items-center justify-center">
-                <FiArrowUpRight className="text-lime-300" />
+              <span className="zip-rider-icon">
+                <FiArrowUpRight />
               </span>
             </Link>
 

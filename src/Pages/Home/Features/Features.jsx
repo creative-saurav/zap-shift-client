@@ -2,7 +2,7 @@ import React from "react";
 
 import tracking from "../../../assets/live-tracking.png";
 import delivery from "../../../assets/safe-delivery.png";
-import support from "../../../assets/safe-delivery.png";
+import support from "../../../assets/customer-top.png";
 
 const features = [
   {
@@ -30,44 +30,30 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="py-16">
-      <div className="space-y-6">
+    <section className="zip-feature-section">
+      <div className="zip-feature-heading">
+        <p className="zip-feature-eyebrow">What matters on every route</p>
+        <h2>Delivery, made easier to trust.</h2>
+      </div>
+      <div className="zip-feature-grid">
         {features.map((feature) => (
           <div
             key={feature.id}
-            className="bg-white rounded-[30px] p-6 md:p-8 shadow-sm"
+            className={`zip-feature-card zip-feature-card-${feature.id}`}
           >
-            <div className="flex flex-col md:flex-row items-center gap-8">
-
-              {/* Image */}
-              <div className="flex justify-center md:w-[180px] shrink-0">
+            <div className={`zip-feature-visual zip-feature-visual-${feature.id}`}>
                 <img
                   src={feature.image}
                   alt={feature.title}
-                  className="w-40 md:w-44"
                 />
-              </div>
-
-              {/* Dashed Divider */}
-              <div className="hidden md:block h-28 border-l border-dashed border-[#7BA5AF]"></div>
-
-              {/* Content */}
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-3xl font-bold text-black mb-4">
-                  {feature.title}
-                </h3>
-
-                <p className="text-gray-500 leading-8">
-                  {feature.description}
-                </p>
-              </div>
-
+            </div>
+            <div className="zip-feature-copy">
+              <span className="zip-feature-number">0{feature.id}</span>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
             </div>
           </div>
         ))}
-
-        {/* Bottom Dashed Line */}
-        <div className="border-b border-dashed border-[#7BA5AF] pt-8"></div>
       </div>
     </section>
   );

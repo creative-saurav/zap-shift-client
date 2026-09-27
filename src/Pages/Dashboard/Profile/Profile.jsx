@@ -205,7 +205,7 @@ const Profile = () => {
                         </h3>
 
                         <p className="text-sm text-gray-400">
-                            Current status of your Zap-Shift account.
+                            Current status of your Wayline Delivery account.
                         </p>
                     </div>
                 </div>

@@ -1,13 +1,7 @@
-import React, { use } from "react";
-import customerTop from "../../../assets/customer-top.png";
 import ReviewsCard from "./ReviewsCard";
-
-
-import { Autoplay, EffectCoverflow } from "swiper/modules";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,7 +14,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const Reviews = () => {
   const axiosSecure = useAxiosSecure();
   // console.log(reviews);
-  const {data: reviews = []} = useQuery({
+  const {data: reviews = [], isLoading} = useQuery({
     queryKey:['reviews'],
     queryFn: async()=>{
       const res = await axiosSecure.get('/reviews');
@@ -28,39 +22,25 @@ const Reviews = () => {
     }
   })
   return (
-    <section className="pt-20 pb-12">
-      <div className="max-w-4xl mx-auto text-center px-4">
-        {/* Top Image */}
-        <img
-          src={customerTop}
-          alt="Customer"
-          className="w-40 md:w-48 mx-auto"
-        />
-
-        {/* Heading */}
-        <h2 className="mt-8 text-[32px] md:text-[44px] font-bold text-[#03373D] leading-tight">
-          What our customers are sayings
-        </h2>
-
-        {/* Description */}
-        <p className="mt-5 mb-3 max-w-2xl mx-auto text-[#606060] text-base leading-8">
-          Enhance posture, mobility, and well-being effortlessly with Posture
-          Pro. Achieve proper alignment, reduce pain, and strengthen your body
-          with ease!
-        </p>
+    <section className="zip-reviews-section">
+      <div className="zip-reviews-heading">
+        <div>
+          <p className="zip-feature-eyebrow">Good experiences travel</p>
+          <h2>What our customers are saying.</h2>
+          <p>Real feedback from people who trust us with every delivery.</p>
+        </div>
+        <div className="zip-review-controls" aria-label="Review controls">
+          <button className="review-prev" type="button" aria-label="Previous review" disabled={reviews.length < 2}>
+            <ArrowLeft size={18} />
+          </button>
+          <button className="review-next" type="button" aria-label="Next review" disabled={reviews.length < 2}>
+            <ArrowRight size={18} />
+          </button>
+        </div>
       </div>
 
-      {/* <ReviewsCard reviews={reviews}></ReviewsCard> */}
-      <div className="relative">
-
-            <button className="review-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-lg">
-                <FaArrowLeft className="text-black" />
-            </button>
-
-            <button className="review-next absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-lg">
-                <FaArrowRight className="text-black" />
-            </button>
-
+      <div className="zip-reviews-slider" role="region" aria-roledescription="carousel" aria-label="Customer reviews">
+        {reviews.length > 0 ? (
             <Swiper
                 modules={[Navigation, Pagination]}
                 navigation={{
@@ -68,20 +48,28 @@ const Reviews = () => {
                 nextEl: ".review-next",
                 }}
                 pagination={{ clickable: true }}
-                centeredSlides
-                loop
-                slidesPerView={3}
-                spaceBetween={35}
+                rewind
+                watchOverflow
+                slidesPerView={1}
+                spaceBetween={14}
+                breakpoints={{
+                  640: { slidesPerView: 2, spaceBetween: 18 },
+                  1024: { slidesPerView: 3, spaceBetween: 20 },
+                }}
                 className="testimonialSwiper"
             >
                 {reviews.map((review) => (
-                <SwiperSlide key={review.id}>
+                <SwiperSlide key={review.id || `${review.name}-${review.rating}`}>
                     <ReviewsCard review={review} />
                 </SwiperSlide>
                 ))}
             </Swiper>
-
-            </div>
+        ) : (
+          <div className="zip-reviews-empty" role="status">
+            {isLoading ? "Loading customer reviews..." : "Customer reviews will appear here soon."}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

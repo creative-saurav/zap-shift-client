@@ -85,7 +85,7 @@ const Register = () => {
               <div className="w-full max-w-md">
                 {/* Heading */}
                 <h1 className="text-5xl font-bold text-black">Create an Account</h1>
-                <p className="mt-2 text-gray-500">Register with ZapShift</p>
+                <p className="mt-2 text-gray-500">Create your Wayline Delivery account</p>
         
                 {/* Form */}
                 <form className="mt-8 space-y-5" onSubmit={handleSubmit(handleRegister)}>

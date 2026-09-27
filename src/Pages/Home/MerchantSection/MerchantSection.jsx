@@ -21,9 +21,9 @@ const MerchantSection = () => {
           {/* Left Content */}
           <div className="w-full lg:w-[48%] text-center lg:text-left mt-10 lg:mt-0">
 
-            <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight max-w-[520px]">
+            <h3 className="text-white text-4xl md:text-5xl font-bold leading-tight max-w-[520px]">
               Merchant and Customer Satisfaction is Our First Priority
-            </h2>
+            </h3>
 
             <p className="mt-6 text-gray-300 leading-8 max-w-[470px]">
               We offer the lowest delivery charge with the highest value along
@@ -38,7 +38,7 @@ const MerchantSection = () => {
               </button>
 
               <button className="border border-primary text-primary rounded-full px-8 py-4 font-semibold hover:bg-primary hover:text-secondary transition">
-                Earn with ZapShift Courier
+                Earn with Wayline Delivery
               </button>
 
             </div>

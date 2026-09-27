@@ -1,12 +1,12 @@
-# 🚚 Zap Shift
+# 🚚 Wayline Delivery
 
-Zap Shift is a modern parcel delivery platform built with **React, Node.js, Express, MongoDB, Firebase Authentication, Stripe, Tailwind CSS, and TanStack Query**.
+Wayline Delivery is a modern parcel delivery platform built with **React, Node.js, Express, MongoDB, Firebase Authentication, Stripe, Tailwind CSS, and TanStack Query**.
 
 The platform allows users to create and manage parcel deliveries, make online payments, track delivery status, and manage their profiles. It also provides dedicated dashboards and management features for admins and riders.
 
 ## 🌐 Live Application
 
-* **Client:** [Zap Shift Client](https://zap-shift-e8a2f.web.app/)
+* **Client:** [Wayline Delivery](https://zap-shift-e8a2f.web.app/)
 * **Server:** https://zap-shit-server.vercel.app/
 
 ## ✨ Features

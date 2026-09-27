@@ -2,26 +2,21 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { FiArrowUpRight } from "react-icons/fi";
-import "./banner.css";
-
-import bannerImage1 from "../../../assets/banner/banner1.png";
-import bannerImage2 from "../../../assets/banner/banner2.png";
-import bannerImage3 from "../../../assets/banner/banner3.png";
+import { PackageCheck, Sparkles } from "lucide-react";
+import "./Banner.css";
 
 const slides = [
   {
     id: 1,
-    image: bannerImage1,
     title1: "We Make Sure Your",
     highlight: "Parcel Arrives",
     title2: "On Time",
-    title3: "– No Fuss.",
+    title3: "",
     description:
       "Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments—we deliver on time, every time.",
   },
   {
     id: 2,
-    image: bannerImage2,
     title1: "Fast & Reliable",
     highlight: "Delivery",
     title2: "Across Bangladesh",
@@ -31,7 +26,6 @@ const slides = [
   },
   {
     id: 3,
-    image: bannerImage3,
     title1: "Delivery in",
     highlight: "30 Minutes ",
     title2: "at your doorstep",
@@ -43,7 +37,7 @@ const slides = [
 
 const Banner = () => {
   return (
-    <div className="mt-8">
+    <div className="zip-home-hero">
       <Carousel
         autoPlay
         infiniteLoop
@@ -54,50 +48,50 @@ const Banner = () => {
         swipeable
       >
         {slides.map((slide) => (
-          <div key={slide.id} className="bg-white rounded-[30px] px-8 lg:px-16 py-12">
-            <div className="grid lg:grid-cols-2 items-center gap-10">
-
-              {/* Left Side */}
-              <div className="text-left">
-
-                <h1 className="text-5xl font-bold leading-tight text-[#12343b]">
+          <div key={slide.id} className="zip-hero-panel">
+            <div className="zip-hero-grid">
+              <div className="zip-hero-copy">
+                <p className="zip-hero-eyebrow">Careful delivery, clearly tracked</p>
+                <h1>
                     {slide.title1}
                     <br />
-                    <span className="text-[#3E97A8]">{slide.highlight}</span>{" "}
+                    <span>{slide.highlight}</span>{" "}
                     {slide.title2}
                     <br />
                     {slide.title3}
                     </h1>
 
-                    <p className="text-gray-500 mt-6 max-w-lg leading-8">
+                    <p className="zip-hero-description">
                     {slide.description}
                     </p>
 
-                <div className="flex gap-4 mt-8">
-                  <button className="bg-primary rounded-full px-7 py-3 font-semibold flex items-center gap-3 hover:bg-secondary hover:text-white transition">
+                <div className="zip-hero-actions ">
+                  <button className="zip-primary-button">
                     Track Your Parcel
-
-                    <span className="bg-black w-8 h-8 rounded-full flex justify-center items-center text-lime-300">
+                    <span className="zip-button-icon">
                       <FiArrowUpRight />
                     </span>
                   </button>
 
-                  <button className="border px-7 py-3 rounded-full font-semibold hover:bg-gray-100">
+                  <button className="zip-secondary-button">
                     Be A Rider
                   </button>
                 </div>
-
               </div>
-
-              {/* Right Side */}
-              <div>
-                <img
-                  src={slide.image}
-                  alt=""
-                  className="w-full max-w-lg mx-auto"
-                />
+              <div className="zip-parcel-scene" role="img" aria-label="A carefully packed parcel ready for delivery">
+                <div className="zip-scene-caption"><span>ON ITS WAY</span><span>0{slide.id} / 03</span></div>
+                <div className="zip-scene-sun" />
+                <div className="zip-parcel-box">
+                  <div className="zip-parcel-top" />
+                  <div className="zip-parcel-front"><span className="zip-parcel-tape" /><span className="zip-parcel-stamp">Z<br />S</span></div>
+                  <div className="zip-parcel-side" />
+                </div>
+                <div className="zip-scene-ground" />
+                <div className="zip-scene-note"><PackageCheck size={18} /><span><strong>Handled with care</strong><small>All the way to your door</small></span></div>
+                <Sparkles className="zip-scene-sparkle zip-sparkle-one" size={19} aria-hidden="true" />
+                <Sparkles className="zip-scene-sparkle zip-sparkle-two" size={13} aria-hidden="true" />
+                <div className="zip-scene-index"><span>0{slide.id}</span><span>MADE TO MOVE WITH YOU</span></div>
               </div>
-
             </div>
           </div>
         ))}

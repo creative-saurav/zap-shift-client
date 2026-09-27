@@ -10,7 +10,7 @@ const ReviewsCard = ({ review }) => {
   } = review;
 
   return (
-    <div className="bg-white rounded-[24px] p-8 w-[390px] h-[360px] shadow-sm flex flex-col">
+    <article className="review-card">
 
       {/* Quote */}
       <FaQuoteLeft className="text-[#D8E7EB] text-4xl mb-6" />
@@ -53,7 +53,7 @@ const ReviewsCard = ({ review }) => {
 
       </div>
 
-    </div>
+    </article>
   );
 };
 

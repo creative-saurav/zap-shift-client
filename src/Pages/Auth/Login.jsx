@@ -28,7 +28,7 @@ const Login = () => {
       <div className="w-full max-w-md">
         {/* Heading */}
         <h1 className="text-5xl font-bold text-black">Welcome Back</h1>
-        <p className="mt-2 text-gray-500">Login with ZapShift</p>
+        <p className="mt-2 text-gray-500">Sign in to Wayline Delivery</p>
 
         {/* Form */}
         <form className="mt-8 space-y-5" onSubmit={handleSubmit(handleLogin)}>

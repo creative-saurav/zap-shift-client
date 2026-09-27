@@ -4,7 +4,7 @@ import { NavLink } from 'react-router';
 
 const Footer = () => {
     return (
-        <footer className=" mt-6 mb-6 bg-secondary rounded-3xl px-8 py-12">
+        <footer className="zip-site-footer mt-6 mb-6 bg-secondary rounded-3xl px-8 py-12">
             <div className="flex flex-col items-center text-center">
 
                 {/* Logo */}

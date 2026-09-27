@@ -11,10 +11,10 @@ const Sidebar = () => {
     const {role} = useRole();
     // console.log('user Role', role);
     return (
-        <div className="px-4 pt-5">
+        <div className="zip-sidebar">
 
             {/* MENU TITLE */}
-            <p className="text-[12px] font-semibold text-[#222] uppercase mb-3">
+            <p className="zip-sidebar-heading">
               Menu
             </p>
 
@@ -173,7 +173,7 @@ const Sidebar = () => {
            
 
             {/* GENERAL */}
-            <p className="text-[12px] font-semibold text-[#222] uppercase mt-6 mb-3">
+            <p className="zip-sidebar-heading zip-sidebar-secondary">
               General
             </p>
 

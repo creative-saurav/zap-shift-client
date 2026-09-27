@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import {
   FiBell,
@@ -6,11 +5,11 @@ import {
   FiMenu,
   FiUser,
   FiLogOut,
-  FiSettings,
 } from "react-icons/fi";
 import useAuth from "../Hooks/useAuth";
 import Sidebar from "../components/Dashboard/Sidebar"
 import useRole from "../Hooks/useRole";
+import Logo from "../components/Logo/Logo";
 
 const DashboardLayout = () => {
   const {user, signOutUser} = useAuth();
@@ -26,82 +25,52 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="drawer lg:drawer-open">
-      {/* Drawer Toggle */}
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+    <div className="zip-dashboard">
+      <input id="dashboard-drawer" type="checkbox" className="zip-dashboard-toggle" />
+      <aside className="zip-dashboard-side">
+        <div className="zip-dashboard-brand"><Logo target="_blank" /></div>
+        <Sidebar />
+      </aside>
+      <label htmlFor="dashboard-drawer" aria-label="Close dashboard menu" className="zip-dashboard-overlay" />
 
-      {/* ================= MAIN CONTENT ================= */}
-      <div className="drawer-content bg-[#f1f2f3] min-h-screen">
-
-        {/* ================= NAVBAR ================= */}
-        <header className="h-[64px] bg-white border-b border-gray-200 flex items-center justify-between px-5 lg:px-6">
-
-          {/* Left Side */}
-          <div className="flex items-center">
-            <label
-              htmlFor="dashboard-drawer"
-              className="cursor-pointer w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-100 transition"
-            >
-              <FiMenu className="text-[21px] text-[#333]" />
-            </label>
-          </div>
-
-          {/* Right Side */}
-          <div className="flex items-center gap-3">
-
-            {/* Notification */}
-            <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition">
-              <FiBell className="text-[17px] text-[#333]" />
+      <div className="zip-dashboard-main">
+        <header className="zip-dashboard-header flex justify-between">
+          <label htmlFor="dashboard-drawer" className="zip-dashboard-menu" aria-label="Toggle dashboard menu">
+            <FiMenu size={19} />
+          </label>
+          <div className="zip-dashboard-actions">
+            <button className="zip-dashboard-icon-button" aria-label="Notifications" type="button">
+              <FiBell size={17} />
             </button>
-
-            {/* Profile Dropdown */}
             <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="flex items-center gap-2.5 cursor-pointer px-2 py-1.5 rounded-lg hover:bg-gray-100 transition"
-              >
-                {/* Avatar */}
-                <div className="w-10 h-10 rounded-full bg-[#d9d9d9] overflow-hidden">
-                  <img
-                    src={user?.photoURL}
-                    alt="profile"
-                    className="w-full h-full object-cover"
-                  />
+              <div tabIndex={0} role="button" className="zip-dashboard-profile">
+                <div className="zip-dashboard-avatar">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="" />
+                  ) : (
+                    <span aria-hidden="true">{user?.displayName?.charAt(0)?.toUpperCase() || 'U'}</span>
+                  )}
                 </div>
-
-                {/* User Info */}
-                <div className="hidden sm:block text-left leading-tight">
-                  <p className="text-[14px] font-semibold text-[#222]">
-                    {user?.displayName}
-                  </p>
-                  <p className="text-[12px] capitalize text-gray-500">
+                <span className="zip-dashboard-user">
+                  <strong>{user?.displayName}</strong>
+                  <span>
                     {
                       role === 'admin' ?  'Admin' :  role === 'rider' ? 'Rider' : 'Customer'
                     }
-                  </p>
-                </div>
-
-                <FiChevronDown className="text-[16px] text-[#333] ml-1" />
+                  </span>
+                </span>
+                <FiChevronDown className="zip-dashboard-chevron" size={15} />
               </div>
-
-              {/* Dropdown Menu */}
-              <ul
-                tabIndex={0}
-                className="dropdown-content menu bg-white rounded-xl z-[50] w-52 p-2 mt-3 shadow-lg border border-gray-100"
-              >
+              <ul tabIndex={0} className="dropdown-content menu zip-dashboard-dropdown">
                 <li>
-                  <NavLink to='/dashboard/profile' className="text-[14px] py-3">
-                    <FiUser className="text-[17px]" />
+                  <NavLink to='/dashboard/profile'>
+                    <FiUser size={16} />
                     Profile
                   </NavLink>
                 </li>
-
-                <div className="divider my-1"></div>
-
                 <li>
-                  <a onClick={logOut} className="text-[14px] py-3 text-red-500">
-                    <FiLogOut className="text-[17px]" />
+                  <a onClick={logOut} className="zip-logout">
+                    <FiLogOut size={16} />
                     Logout
                   </a>
                 </li>
@@ -110,50 +79,11 @@ const DashboardLayout = () => {
           </div>
         </header>
 
-        {/* ================= PAGE CONTENT ================= */}
-        <main className="min-h-[calc(100vh-64px)]">
-          <div className="min-h-screen bg-[#f1f2f3] p-4 md:p-6">
-              <div className="bg-white rounded-xl p-5 md:p-6">
-                  <Outlet />
-               </div>
-             </div>
-        </main>
-      </div>
-
-      {/* ================= SIDEBAR ================= */}
-      <div className="drawer-side z-40">
-
-        {/* Overlay */}
-        <label
-          htmlFor="dashboard-drawer"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-
-        <aside className="w-[250px] min-h-full bg-white border-r border-gray-200">
-
-          {/* ================= LOGO ================= */}
-          <div className="h-[64px] flex items-center px-5 border-b border-gray-100">
-
-            <NavLink to='/' target="_blank" className="flex items-center gap-1.5">
-
-              {/* Logo Shape */}
-              <div className="relative w-[23px] h-[30px]">
-                <div className="absolute top-0 left-0 w-[23px] h-[10px] bg-[#CAEB66] -skew-y-[30deg]"></div>
-
-                <div className="absolute top-[9px] left-0 w-[9px] h-[21px] bg-[#CAEB66]"></div>
-              </div>
-
-              <span className="text-[21px] font-bold text-[#222] tracking-tight">
-                ZapShift
-              </span>
-            </NavLink>
+        <main className="zip-dashboard-content">
+          <div className="zip-dashboard-page">
+            <Outlet />
           </div>
-          
-
-          {/* ================= SIDEBAR MENU ================= */}
-              <Sidebar></Sidebar>
-        </aside>
+        </main>
       </div>
     </div>
   );
