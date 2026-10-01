@@ -7,7 +7,7 @@ The platform allows users to create and manage parcel deliveries, make online pa
 ## 🌐 Live Application
 
 * **Client:** [Wayline Delivery](https://wayline-delivery-e8a2f.web.app/)
-* **Server:** https://zap-shit-server.vercel.app/
+* **Server:** https://wayline-delivery-server.vercel.app/
 
 ## ✨ Features
 
