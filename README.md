@@ -99,7 +99,7 @@ The backend uses **Firebase Admin SDK** to verify authenticated users and protec
 ## 📁 Project Structure
 
 ```text
-zap-shift-client/
+wayline-delivery-client/
 ├── public/
 ├── src/
 │   ├── Components/
@@ -124,13 +124,13 @@ zap-shift-client/
 Clone the repository:
 
 ```bash
-git clone https://github.com/creative-saurav/zap-shift-client.git
+git clone https://github.com/creative-saurav/wayline-delivery-client.git
 ```
 
 Go to the project directory:
 
 ```bash
-cd zap-shift-client
+cd wayline-delivery-client
 ```
 
 Install dependencies:
@@ -174,7 +174,7 @@ npm run preview
 
 ## 📌 Main Purpose
 
-Zap Shift is designed to provide a complete parcel delivery management experience where customers, riders, and administrators can interact through a single platform.
+Wayline Delivery is designed to provide a complete parcel delivery management experience where customers, riders, and administrators can interact through a single platform.
 
 The application focuses on:
 
@@ -189,4 +189,4 @@ The application focuses on:
 
 **Subir Sarker Saurav**
 
-Full-Stack Developer specializing in React, Node.js, Laravel, and modern web technologies.
+Full-Stack Developer specializing in React, Node.js, Next Js, PHP,  Laravel, and modern web technologies.
